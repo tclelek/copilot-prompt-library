@@ -33,8 +33,8 @@ const promptsData = {
                 },
                 {
                     "id": "vision-alignment",
-                    "title": "Mission Alignment Analyser",
-                    "description": "Connect squad work to Medibank's 'Better health for all Australians' mission",
+                    "title": "Opportunity Alignment Analyser",
+                    "description": "Check whether your opportunity ladders up to your Hub objective and ultimately Medibank's mission.",
                     "complexity": "low",
                     "timeEstimate": "10-15 mins",
                     "roles": [
@@ -42,14 +42,14 @@ const promptsData = {
                         "Product Manager"
                     ],
                     "tags": [
-                        "Vision",
                         "Mission",
+                        "Objective",
                         "Alignment"
                     ],
-                    "prompt": "As a {{Hub_Name}} squad working on {{Initiative_Description}}, analyse how our proposed work directly contributes to improving health outcomes for Australians. Identify three specific ways our deliverables will create measurable health value, considering both immediate user benefits and broader systemic impacts.",
+                    "prompt": "We have identified an opportunity to \"{{Opportunity_Description}}\". Analyse how this opportunity supports the hub objective \"{{Hub_Objective}}\". Identify direct contributions, second-order effects, and any gaps that might weaken alignment to our mission of 'Better health for all Australians'.",
                     "variables": [
-                        "Hub_Name",
-                        "Initiative_Description"
+                        "Opportunity_Description",
+                        "Hub_Objective"
                     ],
                     "rating": 4.6,
                     "usageCount": 89
@@ -106,55 +106,29 @@ const promptsData = {
                 {
                     "id": "future-back-scenario-planner",
                     "title": "Future-Back Scenario Planner",
-                    "description": "Craft a vivid, testable vision of the world in five years and back-cast strategic moves.",
+                    "description": "Create divergent future scenarios for a theme, then back-cast the moves we need to start today.",
                     "complexity": "high",
-                    "timeEstimate": "45-60 mins",
-                    "roles": [
-                        "Hub Lead",
-                        "Product Manager",
-                        "Executive Sponsor"
-                    ],
-                    "tags": [
-                        "Scenario Planning",
-                        "Strategic Foresight",
-                        "Back-casting"
-                    ],
-                    "prompt": "Using the end-state {{E_N_D_D_A_T_E}}, write a one-page 'World in {{E_N_D_D_A_T_E}}' memo (see Eric Schmidt framework). List 10 bold but testable predictions with confidence levels, leading indicators, and kill-switch thresholds. Rank them by Impact \u00d7 Confidence \u00d7 Strategic Fit, flagging one-way vs two-way doors. Finish with a three-sentence Focus Thesis that clarifies where we will and will not invest. Focus on the {{Time_Frame}} horizon and consider {{key_stakeholders}}.",
-                    "variables": [
-                        "E_N_D_D_A_T_E",
-                        "Time_Frame"
-                    ],
-                    "rating": 0,
-                    "usageCount": 0
+                    "timeEstimate": "30-45 mins",
+                    "roles": ["Hub Lead","Squad Lead"],
+                    "tags": ["Foresight","Scenario Planning"],
+                    "prompt": "Imagine three plausible futures in which {{Scenario_Theme}} plays out over the next {{Time_Horizon}}. Map the critical uncertainties, define a preferred future, and outline milestones that pull us toward it.",
+                    "variables": ["Scenario_Theme","Time_Horizon"]
                 },
                 {
                     "id": "assumption-inversion-challenge",
                     "title": "Assumption-Inversion Challenge",
-                    "description": "Flip core beliefs upside-down to expose blind spots and strategic risk.",
+                    "description": "Flip core assumptions for your Initiative to expose blind spots and new options.",
                     "complexity": "medium",
-                    "timeEstimate": "25-35 mins",
-                    "roles": [
-                        "Squad Lead",
-                        "Product Manager",
-                        "Business Analyst"
-                    ],
-                    "tags": [
-                        "Inversion Thinking",
-                        "Risk",
-                        "Critical Inquiry"
-                    ],
-                    "prompt": "List our top 5 strategic assumptions for {{Initiative_Name}}. Invert each (e.g., assume the opposite is true). For every inversion: a) describe the worst-case outcome if we are wrong, b) identify early warning signals, c) design one preventive action or contingency plan. Focus on the {{Time_Frame}} horizon and consider {{key_stakeholders}}.",
-                    "variables": [
-                        "Initiative_Name",
-                        "Time_Frame"
-                    ],
-                    "rating": 0,
-                    "usageCount": 0
+                    "timeEstimate": "20-25 mins",
+                    "roles": ["Business Analyst","Product Manager"],
+                    "tags": ["Assumptions","Critical Thinking"],
+                    "prompt": "List the three biggest assumptions behind {{Initiative_Name}}: {{Initiative_Description}}. Invert each one (assume the opposite is true) and brainstorm how the initiative would need to change. Summarise the risks and opportunities revealed.",
+                    "variables": ["Initiative_Name","Initiative_Description"]
                 },
                 {
                     "id": "swot-landscape-scanner",
                     "title": "SWOT Landscape Scanner",
-                    "description": "Identify strengths, weaknesses, opportunities and threats for {{Business_Unit}} against {{Competitor_Names}}",
+                    "description": "Identify strengths, weaknesses, opportunities and threats for your business idea against competitors",
                     "complexity": "low",
                     "timeEstimate": "10-15 mins",
                     "roles": [
@@ -166,9 +140,9 @@ const promptsData = {
                         "Strategy",
                         "Analysis"
                     ],
-                    "prompt": "Perform a SWOT analysis for {{Business_Unit}} comparing us to {{Competitor_Names}}. Highlight key leverage points and potential system-wide ripple effects.",
+                    "prompt": "Perform a SWOT analysis for {{Business_Idea}} comparing us to {{Competitor_Names}}. Highlight key leverage points and potential system-wide ripple effects.",
                     "variables": [
-                        "Business_Unit",
+                        "Business_Idea",
                         "Competitor_Names"
                     ],
                     "rating": 0,
@@ -177,7 +151,7 @@ const promptsData = {
                 {
                     "id": "pestle-trend-radar",
                     "title": "PESTLE Trend Radar",
-                    "description": "Scan political, economic, social, tech, legal and environmental forces for {{Context_Scope}} over the next {{Review_Horizon}}",
+                    "description": "Scan political, economic, social, tech, legal and environmental forces for your idea into the future",
                     "complexity": "medium",
                     "timeEstimate": "20-30 mins",
                     "roles": [
@@ -207,28 +181,15 @@ const promptsData = {
             "icon": '<i data-feather="zap" style="color: #ff0000; stroke-width: 1.5px;"></i>',
             "prompts": [
                 {
-                    "id": "dvf-evaluation",
+                    "id": "dvf-evaluator",
                     "title": "Desirability-Viability-Feasibility Evaluator",
-                    "description": "Systematic analysis of idea potential across DVF dimensions",
-                    "complexity": "high",
-                    "timeEstimate": "30-45 mins",
-                    "roles": [
-                        "Product Manager",
-                        "Squad Lead",
-                        "Engineering Lead"
-                    ],
-                    "tags": [
-                        "DVF",
-                        "Evaluation",
-                        "Decision Making"
-                    ],
-                    "prompt": "Evaluate {{Idea_Description}} across desirability, viability, and feasibility dimensions. For Desirability: What customer pain points does this address? What evidence supports customer demand? For Viability: How does this align with business objectives? What's the expected ROI? For Feasibility: What technical constraints exist? What resources are required? Provide a confidence score (1-10) for each dimension with detailed reasoning. Focus on the {{Time_Frame}} horizon and consider {{key_stakeholders}}.",
-                    "variables": [
-                        "Idea_Description",
-                        "Time_Frame"
-                    ],
-                    "rating": 4.9,
-                    "usageCount": 203
+                    "description": "Score your Initiative for your target audience across desirability, viability, and feasibility.",
+                    "complexity": "medium",
+                    "timeEstimate": "20-25 mins",
+                    "roles": ["UX Designer","Product Manager"],
+                    "tags": ["DVF","Prioritisation"],
+                    "prompt": "Assess {{Initiative_Description}} for the {{Target_Audience}}.\n• **Desirability** \u2014 user value & evidence of demand\n• **Viability** \u2014 revenue, cost, strategic fit\n• **Feasibility** \u2014 tech, ops, regulatory\nReturn a 1\u20135 score for each dimension plus key insights.",
+                    "variables": ["Initiative_Description","Target_Audience"]
                 },
                 {
                     "id": "risk-assessment",
@@ -340,10 +301,11 @@ const promptsData = {
                         "Causal Loops",
                         "Complexity"
                     ],
-                    "prompt": "Draw a causal-loop diagram for {{Idea_Description}} covering users, tech, policy, and market factors. Identify at least two reinforcing and two balancing loops. For each loop, discuss potential unintended consequences and mitigation experiments. Focus on the {{Time_Frame}} horizon and consider {{key_stakeholders}}.",
+                    "prompt": "Draw a causal-loop diagram for {{Idea_Description}} covering users, tech, policy, and market factors. Identify at least two reinforcing and two balancing loops. For each loop, discuss potential unintended consequences and mitigation experiments. Focus on the {{Time_Frame}} horizon and consider {{Key_Stakeholders}}.",
                     "variables": [
                         "Idea_Description",
-                        "Time_Frame"
+                        "Time_Frame",
+                        "Key_Stakeholders"
                     ],
                     "rating": 0,
                     "usageCount": 0
@@ -372,31 +334,9 @@ const promptsData = {
                     "usageCount": 0
                 },
                 {
-                    "id": "impact-effort-prioritiser",
-                    "title": "Impact-Effort Prioritiser",
-                    "description": "Rank {{Backlog_Items}} in an Impact/Effort matrix for the coming {{Time_Frame}}",
-                    "complexity": "low",
-                    "timeEstimate": "10-15 mins",
-                    "roles": [
-                        "Product Manager",
-                        "Business Analyst"
-                    ],
-                    "tags": [
-                        "Prioritisation",
-                        "Impact/Effort"
-                    ],
-                    "prompt": "Plot each item in {{Backlog_Items}} on an Impact vs Effort grid for {{Time_Frame}}. Return a sorted list (Quick Wins \u2192 Major Projects) with rationale.",
-                    "variables": [
-                        "Backlog_Items",
-                        "Time_Frame"
-                    ],
-                    "rating": 0,
-                    "usageCount": 0
-                },
-                {
                     "id": "kano-delight-discovery",
                     "title": "Kano Delight Discovery",
-                    "description": "Categorise {{Feature_List}} for {{Customer_Segment}} using the Kano model",
+                    "description": "Categorise a list of features for a customer segment using the Kano model",
                     "complexity": "medium",
                     "timeEstimate": "20-25 mins",
                     "roles": [
@@ -545,11 +485,11 @@ const promptsData = {
                 {
                     "id": "five-whys-root-cause",
                     "title": "5 Whys Root-Cause Explorer",
-                    "description": "Uncover root causes of {{Issue_Description}} triggered by {{Trigger_Event}}",
+                    "description": "Uncover root causes of an issue triggered by an event",
                     "complexity": "low",
                     "timeEstimate": "10-15 mins",
                     "roles": [
-                        "Squad Lead",
+                        "Squad Lead",   
                         "QA Lead"
                     ],
                     "tags": [
@@ -567,7 +507,7 @@ const promptsData = {
                 {
                     "id": "causal-loop-mapper",
                     "title": "Causal-Loop Mapper",
-                    "description": "Draft a causal loop diagram for {{Problem_Statement}} using {{Key_Variables}} over {{Time_Boundary}}",
+                    "description": "Draft a causal loop diagram for a problem using key variables over a time period.",
                     "complexity": "high",
                     "timeEstimate": "30-45 mins",
                     "roles": [
@@ -759,51 +699,6 @@ const promptsData = {
                     "rating": 0,
                     "usageCount": 0
                 },
-                {
-                    "id": "value-stream-bottleneck-finder",
-                    "title": "Value-Stream Bottleneck Finder",
-                    "description": "Locate bottlenecks across {{Workflow_Stages}} using {{Flow_Metrics}}",
-                    "complexity": "high",
-                    "timeEstimate": "30-45 mins",
-                    "roles": [
-                        "Engineering Lead",
-                        "Scrum Master"
-                    ],
-                    "tags": [
-                        "Value Stream",
-                        "Flow"
-                    ],
-                    "prompt": "Analyse {{Flow_Metrics}} for each stage in {{Workflow_Stages}}. Identify the constraint, estimate its impact on lead time, and propose two experiments to elevate it.",
-                    "variables": [
-                        "Workflow_Stages",
-                        "Flow_Metrics"
-                    ],
-                    "rating": 0,
-                    "usageCount": 0
-                },
-                {
-                    "id": "fmea-risk-scorer",
-                    "title": "FMEA Risk Scorer",
-                    "description": "Run an FMEA on {{Process_Step}} using {{Severity_Scale}}",
-                    "complexity": "medium",
-                    "timeEstimate": "25-30 mins",
-                    "roles": [
-                        "QA Lead",
-                        "Engineering Lead"
-                    ],
-                    "tags": [
-                        "FMEA",
-                        "Quality",
-                        "Risk"
-                    ],
-                    "prompt": "For {{Process_Step}}, generate a Failure-Mode-Effects-Analysis table. Use {{Severity_Scale}} to score Severity, Occurrence, Detection and output an RPN-ranked list.",
-                    "variables": [
-                        "Process_Step",
-                        "Severity_Scale"
-                    ],
-                    "rating": 0,
-                    "usageCount": 0
-                }
             ]
         },
         {
@@ -888,53 +783,29 @@ const promptsData = {
                 {
                     "id": "lessons-learned-lifecycle-mapper",
                     "title": "Lessons-Learned Lifecycle Mapper",
-                    "description": "Turn isolated 'aha' moments into enterprise knowledge assets.",
+                    "description": "Transform outcome data from {{Project_Name}} into actionable lessons across the delivery lifecycle.",
                     "complexity": "medium",
-                    "timeEstimate": "30-40 mins",
-                    "roles": [
-                        "Scrum Master",
-                        "QA Lead",
-                        "Product Manager"
-                    ],
-                    "tags": [
-                        "Continuous Improvement",
-                        "Knowledge Management"
-                    ],
-                    "prompt": "Document one recent lesson from {{Project_Name}}. Place it on a four-quadrant matrix (Known/Unknown \u00d7 Importance). If in Unknown-Important, draft a test plan; if Known-Important, embed in standards; if Unknown-Unimportant, schedule discovery; if Known-Unimportant, archive. Record owner, due date, and follow-up check. Focus on the {{Time_Frame}} horizon and consider {{key_stakeholders}}.",
-                    "variables": [
-                        "Project_Name",
-                        "Time_Frame"
-                    ],
-                    "rating": 0,
-                    "usageCount": 0
+                    "timeEstimate": "25-30 mins",
+                    "roles": ["QA Lead","Scrum Master"],
+                    "tags": ["Retrospective","Knowledge"],
+                    "prompt": "For {{Project_Name}} (completed {{Project_Stage}} with outcome {{Project_Outcomes}}), list key lessons for each lifecycle phase (Strategy \u2192 Shaping \u2192 Discovery \u2192 Design & Delivery \u2192 Measure & Learn). Highlight systemic patterns and recommend how to embed these lessons in future work.",
+                    "variables": ["Project_Name","Project_Stage","Project_Outcomes"]
                 },
                 {
                     "id": "counterfactual-postmortem-explorer",
                     "title": "Counterfactual Post-Mortem Explorer",
-                    "description": "Reveal hidden leverage by simulating alternative histories.",
+                    "description": "Re-run your intiative in alternate universes to see how we might have hit a missed KPI.",
                     "complexity": "high",
-                    "timeEstimate": "35-45 mins",
-                    "roles": [
-                        "Squad Lead",
-                        "Business Analyst",
-                        "Scrum Master"
-                    ],
-                    "tags": [
-                        "Counterfactuals",
-                        "Root-Cause Analysis",
-                        "Decision Quality"
-                    ],
-                    "prompt": "Select a missed KPI for {{Initiative_Name}}. Ask 'what if' we had taken a different decision at each key fork? Map at least two alternate paths and estimate their outcomes. Identify one systemic root cause and one policy change to prevent recurrence.",
-                    "variables": [
-                        "Initiative_Name"
-                    ],
-                    "rating": 0,
-                    "usageCount": 0
+                    "timeEstimate": "30-40 mins",
+                    "roles": ["Squad Lead","Systems Thinker"],
+                    "tags": ["Post-Mortem","Counterfactual"],
+                    "prompt": "Given {{Initiative_Description}}, imagine two alternate histories where we achieved {{Missed_KPI}}. Describe the changed decisions, their first- and second-order effects, and what early warning signals we'd expect in each universe.",
+                    "variables": ["Initiative_Description","Missed_KPI"]
                 },
                 {
                     "id": "north-star-metric-builder",
                     "title": "North-Star Metric Builder",
-                    "description": "Define a unifying metric for {{Product_Goal}} that captures {{User_Value_Statement}}",
+                    "description": "Define a unifying metric for your product goal that captures a target user value.",
                     "complexity": "medium",
                     "timeEstimate": "20-25 mins",
                     "roles": [
@@ -953,29 +824,6 @@ const promptsData = {
                     "rating": 0,
                     "usageCount": 0
                 },
-                {
-                    "id": "kpi-tree-generator",
-                    "title": "KPI Tree Generator",
-                    "description": "Break down {{Strategic_Goal}} into measurable KPIs using {{Data_Sources}} across {{Time_Frame}}",
-                    "complexity": "high",
-                    "timeEstimate": "30-40 mins",
-                    "roles": [
-                        "Data Analyst",
-                        "Hub Lead"
-                    ],
-                    "tags": [
-                        "KPI Tree",
-                        "Measurement"
-                    ],
-                    "prompt": "Create a KPI tree that cascades {{Strategic_Goal}} into outcome, output and input metrics. Use {{Data_Sources}} and cover short-, mid- and long-term horizons ({{Time_Frame}}).",
-                    "variables": [
-                        "Strategic_Goal",
-                        "Data_Sources",
-                        "Time_Frame"
-                    ],
-                    "rating": 0,
-                    "usageCount": 0
-                }
             ]
         }
     ],

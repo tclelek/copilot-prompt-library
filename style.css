@@ -7,7 +7,7 @@
   --color-primary: #000000;
   --color-primary-hover: #333333;
   --color-primary-active: #666666;
-  --color-secondary: #f7fafc;
+  --color-secondary: #f2f2f2;
   --color-secondary-hover: #edf2f7;
   --color-secondary-active: #e2e8f0;
   --color-border: #e2e8f0;
@@ -667,6 +667,22 @@ select.form-control {
 .phase-tab__count {
   font-size: var(--font-size-sm);
   color: var(--color-text-secondary);
+}
+
+.phase-tab__count-badge {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 28px;
+  height: 28px;
+  background: var(--color-secondary);
+  color: #4f4f4f;
+  border-radius: 50%;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1;
+  box-shadow: none;
 }
 
 /* Phase Colors */

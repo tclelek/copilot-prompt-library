@@ -23,8 +23,65 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function initializeApp() {
-    appState.phases = promptsData.phases;
-    appState.prompts = promptsData.phases.flatMap(phase => 
+    const phasePromptOrder = {
+        strategy: [
+            'vision-alignment',
+            'future-back-scenario-planner',
+            'swot-landscape-scanner',
+            'pestle-trend-radar',
+            'assumption-inversion-challenge',
+            'pre-mortem-risk-assessment',
+            'stakeholder-alignment-brief',
+            'okr-development'
+        ],
+        shaping: [
+            'dvf-evaluator',
+            'feature-impact-mapping',
+            'systems-thinking-impact-loop',
+            'kano-delight-discovery',
+            'second-order-consequence-mapper',
+            'risk-assessment',
+            'technical-solution-evaluator',
+            'rapid-validation'
+        ],
+        discovery: [
+            'user-research-planner',
+            'requirements-elicitation',
+            'five-whys-root-cause',
+            'causal-loop-mapper',
+            'lateral-thinking-ideation-jam',
+            'solution-architecture',
+            'red-team-devils-advocate'
+        ],
+        delivery: [
+            'triz-innovative-solution-evaluator',
+            'design-critique-preparation',
+            'sprint-planning',
+            'test-plan-strategizer',
+            'quality-assurance',
+            'deployment-planning',
+            'chaos-day-experiment-designer'
+        ],
+        measure: [
+            'north-star-metric-builder',
+            'metrics-insights-review',
+            'customer-impact',
+            'retrospective-insight-generator',
+            'lessons-learned-lifecycle-mapper',
+            'counterfactual-postmortem-explorer'
+        ]
+    };
+
+    appState.phases = promptsData.phases.map(phase => {
+        const orderList = phasePromptOrder[phase.id] || [];
+        const prompts = phase.prompts.map(prompt => {
+            const sortOrder = orderList.indexOf(prompt.id);
+            return { ...prompt, sortOrder: sortOrder === -1 ? 999 : sortOrder };
+        }).sort((a, b) => a.sortOrder - b.sortOrder);
+        return { ...phase, prompts };
+    });
+
+    appState.prompts = appState.phases.flatMap(phase => 
         phase.prompts.map(prompt => ({ ...prompt, phaseId: phase.id, phaseName: phase.name, phaseColor: phase.color }))
     );
     
@@ -99,6 +156,7 @@ function showDashboard() {
 }
 
 function showPhaseDetail(phaseId) {
+    window.scrollTo(0, 0);
     appState.currentView = 'phase-detail';
     appState.currentPhase = phaseId;
     
@@ -155,6 +213,7 @@ function createPhaseTab(tabData, phaseId) {
         <div class="phase-tab__content">
             <div class="phase-tab__name">${tabData.name}</div>
         </div>
+        <div class="phase-tab__count-badge">${appState.phases.find(p => p.id === phaseId).prompts.length}</div>
     `;
 
     tab.addEventListener('click', () => {
@@ -229,7 +288,6 @@ function renderPrompts() {
     if (!container) return;
 
     let prompts = getFilteredPrompts();
-    prompts = sortPrompts(prompts);
 
     container.innerHTML = '';
 
@@ -279,24 +337,7 @@ function getFilteredPrompts() {
         );
     }
 
-    return prompts;
-}
-
-function sortPrompts(prompts) {
-    const sortBy = appState.filters.sortBy;
-    
-    return [...prompts].sort((a, b) => {
-        switch (sortBy) {
-            case 'rating':
-                return b.rating - a.rating;
-            case 'usage':
-                return b.usageCount - a.usageCount;
-            case 'title':
-                return a.title.localeCompare(b.title);
-            default:
-                return 0;
-        }
-    });
+    return prompts.sort((a, b) => a.sortOrder - b.sortOrder);
 }
 
 function createPromptCard(prompt) {
