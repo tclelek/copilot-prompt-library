@@ -470,8 +470,9 @@ function openPlayground(promptId) {
     const copyBtn = document.getElementById('copyPromptBtn');
     if (copyBtn) {
         copyBtn.onclick = function() {
-            const promptText = prompt.prompt;
-            navigator.clipboard.writeText(promptText).then(() => {
+            // Copy the processed prompt with variable values
+            const processedPrompt = document.getElementById('promptEditor').value;
+            navigator.clipboard.writeText(processedPrompt).then(() => {
                 showToast('Prompt copied to clipboard!', 'success');
             });
         };
