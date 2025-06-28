@@ -153,6 +153,9 @@ function showDashboard() {
     document.getElementById('dashboard').classList.remove('hidden');
     document.getElementById('phaseDetail').classList.add('hidden');
     document.getElementById('phaseNav').classList.add('hidden');
+    // Hide header brand on dashboard
+    const headerBrand = document.querySelector('.header__brand');
+    if (headerBrand) headerBrand.style.display = 'none';
 }
 
 function showPhaseDetail(phaseId) {
@@ -166,6 +169,9 @@ function showPhaseDetail(phaseId) {
     document.getElementById('dashboard').classList.add('hidden');
     document.getElementById('phaseDetail').classList.remove('hidden');
     document.getElementById('phaseNav').classList.remove('hidden');
+    // Show header brand on phase detail
+    const headerBrand = document.querySelector('.header__brand');
+    if (headerBrand) headerBrand.style.display = 'flex';
     
     // Update phase detail header
     document.getElementById('phaseDetailTitle').textContent = phase.name;
@@ -421,6 +427,10 @@ function openPlayground(promptId) {
     createVariableInputs(prompt.variables || []);
     document.getElementById('playgroundModal').classList.remove('hidden');
     appState.currentPrompt = prompt;
+
+    // Render tags
+    const tagsContainer = document.getElementById('playgroundTags');
+    tagsContainer.innerHTML = (prompt.tags || []).map(tag => `<span class='tag'>${tag}</span>`).join('');
 
     // Attach copy event listener
     const copyBtn = document.getElementById('copyPromptBtn');
