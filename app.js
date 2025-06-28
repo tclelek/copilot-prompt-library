@@ -392,11 +392,7 @@ function handleGlobalSearch(event) {
 function handleFilterChange() {
     appState.filters.role = document.getElementById('roleFilter').value;
     appState.filters.complexity = document.getElementById('complexityFilter').value;
-    appState.filters.sortBy = document.getElementById('sortBy').value;
-    
-    if (appState.currentView === 'phase-detail') {
-        renderPrompts();
-    }
+    renderPrompts();
 }
 
 function clearAllFilters() {

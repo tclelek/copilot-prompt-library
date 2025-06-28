@@ -23,9 +23,9 @@ const promptsData = {
                         "Planning",
                         "Alignment"
                     ],
-                    "prompt": "Help me develop quarterly OKRs for our {{Squad_Name}} squad that align with {{Hub_Objectives}}. For each proposed objective, suggest 3-4 key results that are: measurable within our quarterly timeframe, directly influenced by our squad's capabilities, and clearly connected to customer value. Include potential leading indicators we can track weekly.",
+                    "prompt": "Help me develop quarterly OKRs for our Squad quest that align with {{Hub_Objectives}}. For each proposed objective, suggest 3-4 key results that are: measurable within our quarterly timeframe, directly influenced by our squad's capabilities, and clearly connected to customer value. Include potential leading indicators we can track weekly. Our Squad quest is to\: {{Squad_Quest}}",
                     "variables": [
-                        "Squad_Name",
+                        "Squad_Quest",
                         "Hub_Objectives"
                     ],
                     "rating": 4.8,
