@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medibank VDF Prompt Library</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header Navigation -->
+    <header class="header">
+        <div class="container">
+            <div class="header__content">
+                <div class="header__brand">
+                    <div class="logo">
+                        <span class="logo__text"><a href="#" onclick="showDashboard(); return false;" style="text-decoration:none;color:inherit;">Value Delivery Prompt Library</a></span>
+                    </div>
+                </div>
+                
+                <div class="header__actions">
+                    <button class="btn btn--outline mode-toggle" id="modeToggle" title="Toggle dark/light mode">
+                        <span id="modeToggleIcon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <div class="container">
+            <!-- Phase Navigation -->
+            <nav class="phase-nav" id="phaseNav">
+                <div class="phase-nav__tabs" id="phaseNavTabs">
+                    <!-- Will be populated by JavaScript -->
+                </div>
+            </nav>
+
+            <!-- Dashboard Overview -->
+            <section class="dashboard" id="dashboard">
+                <div class="dashboard__header">
+                    <h1 class="dashboard__title">Hey there 👋🏼</h1>
+                    <p class="dashboard__subtitle">This internal library is designed to help our teams get more out of Microsoft CoPilot by providing ready-to-use prompts aligned to our five key value delivery phases—Strategy, Shaping, Discovery, Design & Delivery, and Measure & Learn.</p>
+                    
+                    <div class="dashboard__stats">
+                        <div class="stat-card">
+                            <div class="stat-card__value">36</div>
+                            <div class="stat-card__label">Total Prompts</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-card__value">1,247</div>
+                            <div class="stat-card__label">Active Users</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-card__value">4.7</div>
+                            <div class="stat-card__label">Avg Rating</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="phase-grid" id="phaseGrid">
+                    <!-- Will be populated by JavaScript -->
+                </div>
+            </section>
+
+            <!-- Phase Detail View -->
+            <section class="phase-detail hidden" id="phaseDetail">
+                <div class="phase-detail__header">
+                    <div class="phase-detail__info">
+                        <h2 class="phase-detail__title" id="phaseDetailTitle"></h2>
+                        <p class="phase-detail__description" id="phaseDetailDescription"></p>
+                    </div>
+                </div>
+
+                <!-- Filters -->
+                <div class="filters-section">
+                    <div class="filters">
+                        <div class="filter-group">
+                            <label for="roleFilter" class="form-label">Filter by Role</label>
+                            <select id="roleFilter" class="form-control">
+                                <option value="">All Roles</option>
+                                <!-- Will be populated by JavaScript -->
+                            </select>
+                        </div>
+                        
+                        <div class="filter-group">
+                            <label for="complexityFilter" class="form-label">Complexity</label>
+                            <select id="complexityFilter" class="form-control">
+                                <option value="">All Complexity</option>
+                                <option value="low">Low</option>
+                                <option value="medium">Medium</option>
+                                <option value="high">High</option>
+                            </select>
+                        </div>
+                        
+                        <div class="filter-group">
+                            <label for="sortBy" class="form-label">Sort by</label>
+                            <select id="sortBy" class="form-control">
+                                <option value="rating">Rating</option>
+                                <option value="usage">Usage Count</option>
+                                <option value="title">Title</option>
+                            </select>
+                        </div>
+                        
+                        <button class="btn btn--secondary" id="clearFilters">Clear Filters</button>
+                    </div>
+                </div>
+
+                <!-- Prompt Cards -->
+                <div class="prompts-grid" id="promptsGrid">
+                    <!-- Will be populated by JavaScript -->
+                </div>
+            </section>
+
+            <!-- Prompt Playground Modal -->
+            <div class="modal-overlay hidden" id="playgroundModal">
+                <div class="modal">
+                    <div class="modal__header">
+                        <div class="modal__header-content">
+                            <h3 class="modal__title" id="playgroundTitle"></h3>
+                            <p class="modal__desc" id="playgroundDesc"></p>
+                        </div>
+                        <button class="modal__close" id="closePlayground">×</button>
+                    </div>
+                    <div class="modal__body">
+                        <div class="modal__columns">
+                            <div class="modal__col modal__col--left">
+                                <h4>Customize Variables</h4>
+                                <div id="variableInputs"></div>
+                            </div>
+                            <div class="modal__col modal__col--right">
+                                <div class="modal__col-header" style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+                                    <h4 style="margin:0;">Generated Prompt</h4>
+                                    <button class="btn btn--outline copy-btn" id="copyPromptBtn" type="button" style="display:flex;align-items:center;gap:8px;">
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block;">
+                                            <rect x="9" y="9" width="13" height="13" rx="2" stroke="currentColor" stroke-width="2"/>
+                                            <rect x="3" y="3" width="13" height="13" rx="2" stroke="currentColor" stroke-width="2"/>
+                                        </svg>
+                                        <span>Copy Prompt</span>
+                                    </button>
+                                </div>
+                                <textarea id="promptEditor" class="form-control playground__textarea" rows="16" readonly></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Toast Notifications -->
+            <div class="toast-container" id="toastContainer">
+                <!-- Toasts will be added here dynamically -->
+            </div>
+        </div>
+    </main>
+
+    <script src="prompts.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
