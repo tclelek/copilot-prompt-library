@@ -170,7 +170,36 @@ const promptsData = {
                     ],
                     "rating": 0,
                     "usageCount": 0
-                }
+                },
+                {
+                    "id": "4ps-stress-test",
+                    "title": "4 Ps Stress-Test",
+                    "description": "Use in the strategy or shaping phase to audit Product, Price, Place, and Promotion against competitors and spot gaps in the marketing mix.",
+                    "complexity": "medium",
+                    "timeEstimate": "20-30 mins",
+                    "roles": [
+                      "Marketer",
+                      "Product Manager",
+                      "Squad Lead"
+                    ],
+                    "tags": [
+                      "Marketing Mix",
+                      "4Ps",
+                      "Gap Analysis",
+                      "Competitive Strategy"
+                    ],
+                    "prompt": "We’re reviewing the marketing mix for {{Product_Name}}.\n\n**Current Snapshot**\nProduct details: {{Current_Product_Details}}\nPricing info: {{Pricing_Info}}\nDistribution / Place: {{Distribution_Channels}}\nPromotion summary: {{Promotion_Summary}}\nKey competitors & their approaches: {{Benchmark_Competitors}}\n\n**Task**\n1. For each P (Product, Price, Place, Promotion), rate {{Product_Name}} as Strong, Adequate, or Weak versus the benchmark and give a one-sentence rationale.\n2. Identify the single biggest gap or risk in each P.\n3. Suggest one quick win and one longer-term initiative to close that gap, noting required effort and expected impact.\n4. Prioritise the four longer-term initiatives (one per P) using Impact vs. Effort and explain your order.\n\nReturn the analysis in a tidy table, followed by a short prioritised to-do list.",
+                    "variables": [
+                      "Product_Name",
+                      "Current_Product_Details",
+                      "Pricing_Info",
+                      "Distribution_Channels",
+                      "Promotion_Summary",
+                      "Benchmark_Competitors"
+                    ],
+                    "rating": 0,
+                    "usageCount": 0
+                  }
             ]
         },
         {
@@ -354,7 +383,63 @@ const promptsData = {
                     ],
                     "rating": 0,
                     "usageCount": 0
-                }
+                },
+                {
+                    "id": "jtbd-storyboarder",
+                    "title": "Jobs-to-be-Done Storyboarder",
+                    "description": "Transforms a JTBD statement into a visual storyboard that captures functional and emotional jobs, forces of progress, and desired outcomes.",
+                    "complexity": "medium",
+                    "timeEstimate": "25-35 mins",
+                    "roles": [
+                      "Marketer",
+                      "Product Manager",
+                      "Business Analyst"
+                    ],
+                    "tags": [
+                      "JTBD",
+                      "Customer Insight",
+                      "Storyboard",
+                      "Design Thinking"
+                    ],
+                    "prompt": "We want to visualise a core Job-to-be-Done.\n\n**Input**\nTarget persona: {{Target_Persona}}\nSituation trigger: {{Situation_Trigger}}\nDesired outcome: {{Desired_Outcome}}\nBarriers / anxieties: {{Barriers}}\nExisting solutions: {{Existing_Solutions}}\n\n**Task**\n1. Draft a job story in the format: *When {{Situation_Trigger}}, I want to {{Functional_Job}} so I can {{Desired_Outcome}}.*\n2. List the emotional and social jobs that accompany the functional job.\n3. Map the Forces of Progress (Push, Pull, Anxiety, Habit) influencing adoption.\n4. Create a 6-frame storyboard describing the persona’s journey—from trigger to outcome—including the forces at play in each frame.\n5. Conclude with two opportunity areas where a new or improved solution could outperform existing alternatives.\n\nReturn the storyboard frames as numbered captions; include a short note under each frame describing what a sketch should depict.",
+                    "variables": [
+                      "Target_Persona",
+                      "Situation_Trigger",
+                      "Desired_Outcome",
+                      "Barriers",
+                      "Existing_Solutions"
+                    ],
+                    "rating": 0,
+                    "usageCount": 0
+                  },
+                  {
+                    "id": "tech-spike-planning-assistant",
+                    "title": "Tech-Spike Planning Assistant",
+                    "description": "Helps engineers frame and time-box a technical spike, define exit criteria, and surface risks and dependencies before development.",
+                    "complexity": "medium",
+                    "timeEstimate": "15-25 mins",
+                    "roles": [
+                      "Engineer",
+                      "Squad Lead",
+                      "Product Manager",
+                      "Scrum Master"
+                    ],
+                    "tags": [
+                      "Spike",
+                      "Planning",
+                      "Risk Reduction",
+                      "Engineering"
+                    ],
+                    "prompt": "We need to run a technical spike on {{User_Story_or_Problem}} to de-risk implementation.\n\n**Context**\nKnown uncertainties / questions to answer: {{Technical_Uncertainties}}\nTime-box (days or hours): {{Timebox_Duration}}\nDefinition of Done for the spike: {{Definition_of_Done}}\n\n**Task**\n1. Break the spike into discrete investigative tasks with owners and rough effort.\n2. Define measurable exit criteria that map to {{Definition_of_Done}}.\n3. List assumptions to validate and the experiments or proofs-of-concept needed for each.\n4. Surface dependencies (people, environments, data) and call out any blockers.\n5. Produce a simple Gantt-style timeline that fits within {{Timebox_Duration}}.\n6. Finish with a ‘Go / No-Go’ decision checklist we’ll use when the spike wraps up.\n\nReturn the plan in a structured markdown format: Objectives → Tasks → Timeline → Exit Criteria → Dependencies → Decision Checklist.",
+                    "variables": [
+                      "User_Story_or_Problem",
+                      "Technical_Uncertainties",
+                      "Timebox_Duration",
+                      "Definition_of_Done"
+                    ],
+                    "rating": 0,
+                    "usageCount": 0
+                  }
             ]
         },
         {
@@ -829,16 +914,14 @@ const promptsData = {
     ],
     "roles": [
         "Business Analyst",
-        "Data Analyst",
-        "DevOps Engineer",
         "Engineering Lead",
         "Enterprise Architect",
         "Hub Lead",
+        "Marketer",
         "Product Manager",
         "QA Lead",
         "Scrum Master",
         "Squad Lead",
-        "Systems Thinker",
         "UX Designer"
     ],
     "complexityLevels": [
