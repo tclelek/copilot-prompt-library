@@ -1613,7 +1613,7 @@ select.form-control {
 	color: var(--color-text-secondary);
 }
 
-.modal__tags {
+.modal__purposes {
 	display: flex;
 	flex-wrap: wrap;
 	gap: var(--space-4);
@@ -1623,7 +1623,7 @@ select.form-control {
 	position: relative;
 }
 
-.modal__tags::after {
+.modal__purposes::after {
 	content: '';
 	position: absolute;
 	right: 0;
@@ -1634,10 +1634,62 @@ select.form-control {
 	background: linear-gradient(to right, rgba(255, 255, 255, 0), #fff 80%);
 }
 
+.purpose-badge {
+	padding: var(--space-2) var(--space-8);
+	background: var(--color-background);
+	border: 1px solid var(--color-border);
+	border-radius: 5px;
+	font-size: var(--font-size-xs);
+	color: var(--color-text-secondary);
+	text-wrap: nowrap;
+	display: inline-flex;
+	align-items: center;
+	height: 24px;
+	line-height: 1.5;
+	font-weight: var(--font-weight-medium);
+	box-sizing: border-box;
+}
+
 #dashboard .header__brand {
 	display: none;
 }
 
 #phaseDetail .header__brand {
 	display: flex;
+}
+
+.prompt-card__purpose {
+	display: flex;
+	gap: var(--space-4);
+	white-space: nowrap;
+	overflow-x: auto;
+	max-width: 75%;
+	position: relative;
+	padding-bottom: 2px;
+}
+
+.prompt-card__purpose::after {
+	display: none;
+}
+
+.prompt-variable {
+	color: #000;
+	font-weight: 600;
+}
+
+#promptEditorHtml {
+	min-height: 200px;
+	max-height: 300px;
+	overflow-y: auto;
+	background: var(--color-surface);
+	color: #000;
+	resize: none;
+	font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+	font-size: 14px;
+	border: 1px solid var(--color-border);
+	border-radius: var(--radius-base);
+	padding: var(--space-16);
+	box-sizing: border-box;
+	width: 100%;
+	margin-bottom: 12px;
 }

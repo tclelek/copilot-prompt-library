@@ -8,7 +8,8 @@ let appState = {
     filters: {
         role: '',
         complexity: '',
-        sortBy: 'rating'
+        sortBy: 'rating',
+        purpose: ''
     },
     prompts: [],
     phases: [],
@@ -109,11 +110,13 @@ function setupEventListeners() {
     const complexityFilter = document.getElementById('complexityFilter');
     const sortBy = document.getElementById('sortBy');
     const clearFilters = document.getElementById('clearFilters');
+    const purposeFilter = document.getElementById('purposeFilter');
 
     if (roleFilter) roleFilter.addEventListener('change', handleFilterChange);
     if (complexityFilter) complexityFilter.addEventListener('change', handleFilterChange);
     if (sortBy) sortBy.addEventListener('change', handleFilterChange);
     if (clearFilters) clearFilters.addEventListener('click', clearAllFilters);
+    if (purposeFilter) purposeFilter.addEventListener('change', handleFilterChange);
 
     // Modal close
     const closePlayground = document.getElementById('closePlayground');
@@ -141,6 +144,7 @@ function renderDashboard() {
     showDashboard();
     renderPhaseGrid();
     populateRoleFilter();
+    populatePurposeFilter();
     
     // Initialize Feather icons after rendering dashboard
     if (typeof feather !== 'undefined') {
@@ -179,6 +183,7 @@ function showPhaseDetail(phaseId) {
     
     renderPhaseNavigation();
     updatePhaseNavigation();
+    populatePurposeFilter();
     renderPrompts();
 }
 
@@ -289,6 +294,16 @@ function populateRoleFilter() {
     });
 }
 
+function populatePurposeFilter() {
+    const purposeFilter = document.getElementById('purposeFilter');
+    if (!purposeFilter) return;
+    const phase = appState.phases.find(p => p.id === appState.currentPhase);
+    if (!phase) return;
+    const purposes = Array.from(new Set(phase.prompts.flatMap(p => p.purpose || [])));
+    purposeFilter.innerHTML = '<option value="">All Purposes</option>' + purposes.map(purpose => `<option value="${purpose}">${purpose}</option>`).join('');
+    purposeFilter.value = appState.filters.purpose;
+}
+
 function renderPrompts() {
     const container = document.getElementById('promptsGrid');
     if (!container) return;
@@ -324,7 +339,7 @@ function getFilteredPrompts() {
         prompts = prompts.filter(prompt =>
             prompt.title.toLowerCase().includes(query) ||
             prompt.description.toLowerCase().includes(query) ||
-            prompt.tags.some(tag => tag.toLowerCase().includes(query)) ||
+            prompt.purpose.some(purpose => purpose.toLowerCase().includes(query)) ||
             prompt.roles.some(role => role.toLowerCase().includes(query))
         );
     }
@@ -340,6 +355,13 @@ function getFilteredPrompts() {
     if (appState.filters.complexity) {
         prompts = prompts.filter(prompt =>
             prompt.complexity === appState.filters.complexity
+        );
+    }
+
+    // Apply purpose filter
+    if (appState.filters.purpose) {
+        prompts = prompts.filter(prompt =>
+            prompt.purpose.includes(appState.filters.purpose)
         );
     }
 
@@ -363,8 +385,8 @@ function createPromptCard(prompt) {
             <p class="prompt-card__description">${prompt.description}</p>
         </div>
         <div class="prompt-card__meta">
-            <div class="prompt-card__tags">
-                ${prompt.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+            <div class="prompt-card__purpose">
+                ${prompt.purpose.map(purpose => `<span class="purpose-badge purpose-badge--${purpose}">${purpose}</span>`).join('')}
             </div>
             <div class="prompt-card__complexity">
                 <span class="complexity-badge complexity-badge--${prompt.complexity}">${prompt.complexity}</span>
@@ -398,22 +420,16 @@ function handleGlobalSearch(event) {
 function handleFilterChange() {
     appState.filters.role = document.getElementById('roleFilter').value;
     appState.filters.complexity = document.getElementById('complexityFilter').value;
+    appState.filters.purpose = document.getElementById('purposeFilter').value;
     renderPrompts();
 }
 
 function clearAllFilters() {
-    appState.filters = { role: '', complexity: '', sortBy: 'rating' };
-
-    // Reset form controls
+    appState.filters = { role: '', complexity: '', purpose: '' };
     document.getElementById('roleFilter').value = '';
     document.getElementById('complexityFilter').value = '';
-    document.getElementById('sortBy').value = 'rating';
-
-    if (appState.currentView === 'phase-detail') {
-        renderPrompts();
-    } else {
-        renderDashboard();
-    }
+    document.getElementById('purposeFilter').value = '';
+    renderPrompts();
 }
 
 function openPlayground(promptId) {
@@ -422,21 +438,39 @@ function openPlayground(promptId) {
 
     document.getElementById('playgroundTitle').textContent = prompt.title;
     document.getElementById('playgroundDesc').textContent = prompt.description;
-    document.getElementById('promptEditor').value = prompt.prompt;
-    document.getElementById('promptEditor').readOnly = true;
+
+    // Highlight variables in the prompt text
+    const variablePattern = /\{\{(.*?)\}\}/g;
+    const highlightedPrompt = prompt.prompt.replace(variablePattern, (match, p1) => `<span class='prompt-variable'>{{${p1}}}</span>`);
+
+    // If using a textarea, also set a hidden HTML container for styled display
+    const promptEditor = document.getElementById('promptEditor');
+    promptEditor.value = prompt.prompt;
+    promptEditor.readOnly = true;
+    let htmlContainer = document.getElementById('promptEditorHtml');
+    if (!htmlContainer) {
+        htmlContainer = document.createElement('div');
+        htmlContainer.id = 'promptEditorHtml';
+        htmlContainer.className = 'playground__textarea';
+        promptEditor.parentNode.insertBefore(htmlContainer, promptEditor);
+    }
+    htmlContainer.innerHTML = highlightedPrompt.replace(/\n/g, '<br>');
+    htmlContainer.style.marginBottom = '12px';
+    promptEditor.style.display = 'none';
+
     createVariableInputs(prompt.variables || []);
     document.getElementById('playgroundModal').classList.remove('hidden');
     appState.currentPrompt = prompt;
 
-    // Render tags
-    const tagsContainer = document.getElementById('playgroundTags');
-    tagsContainer.innerHTML = (prompt.tags || []).map(tag => `<span class='tag'>${tag}</span>`).join('');
+    // Render purposes
+    const purposesContainer = document.getElementById('playgroundPurposes');
+    purposesContainer.innerHTML = (prompt.purpose || []).map(purpose => `<span class='purpose-badge purpose-badge--${purpose}'>${purpose}</span>`).join('');
 
     // Attach copy event listener
     const copyBtn = document.getElementById('copyPromptBtn');
     if (copyBtn) {
         copyBtn.onclick = function() {
-            const promptText = document.getElementById('promptEditor').value;
+            const promptText = prompt.prompt;
             navigator.clipboard.writeText(promptText).then(() => {
                 showToast('Prompt copied to clipboard!', 'success');
             });
@@ -489,6 +523,24 @@ function updatePromptLive() {
         processedPrompt = processedPrompt.replace(new RegExp(`{{${variable}}}`, 'g'), value);
     });
     document.getElementById('promptEditor').value = processedPrompt;
+
+    // Highlight variables in the HTML view
+    let highlightedPrompt = processedPrompt;
+    // Find all variable values and wrap them in .prompt-variable if they match the input value
+    variableInputs.forEach(input => {
+        const variable = input.getAttribute('data-variable');
+        const value = input.value || `[${variable}]`;
+        // Only wrap if value is not empty
+        if (value) {
+            // Escape special regex characters in value
+            const escapedValue = value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+            highlightedPrompt = highlightedPrompt.replace(new RegExp(escapedValue, 'g'), `<span class='prompt-variable'>${value}</span>`);
+        }
+    });
+    const htmlContainer = document.getElementById('promptEditorHtml');
+    if (htmlContainer) {
+        htmlContainer.innerHTML = highlightedPrompt.replace(/\n/g, '<br>');
+    }
 }
 
 function closeModal() {
