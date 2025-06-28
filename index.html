@@ -7,6 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
     <link rel="stylesheet" href="style.css">
 </head>
@@ -17,18 +18,12 @@
             <div class="header__content">
                 <div class="header__brand">
                     <div class="logo">
-                        <span class="logo__text"><a href="#" onclick="showDashboard(); return false;" style="text-decoration:none;color:inherit;">Value Delivery Prompt Library</a></span>
+                        <span class="logo__text"><a href="#" onclick="showDashboard(); return false;" style="text-decoration:none;color:inherit;">Unbox your thinking</a></span>
                     </div>
                 </div>
                 
                 <div class="header__actions">
-                    <button class="btn btn--outline mode-toggle" id="modeToggle" title="Toggle dark/light mode">
-                        <span id="modeToggleIcon">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                        </span>
-                    </button>
+                    <!-- Mode toggle button removed -->
                 </div>
             </div>
         </div>
@@ -47,8 +42,17 @@
             <!-- Dashboard Overview -->
             <section class="dashboard" id="dashboard">
                 <div class="dashboard__header">
-                    <h1 class="dashboard__title">Hey there 👋🏼</h1>
-                    <p class="dashboard__subtitle">This internal library is designed to help our teams get more out of Microsoft CoPilot by providing ready-to-use prompts aligned to our five key value delivery phases—Strategy, Shaping, Discovery, Design & Delivery, and Measure & Learn.</p>
+                    <h1 class="dashboard__title">Unbox your thinking</h1>
+                    <p class="dashboard__subtitle">Smarter prompts. Sharper thinking. Better delivery.</p>
+                    <div class="dashboard__intro">
+                        <div class="dashboard__intro-text">
+                            Unbox Your Thinking is your team's launchpad for better problem-solving with Microsoft CoPilot. Tap into a curated library of prompts designed to unlock systems thinking across every phase of our value delivery framework—Strategy, Shaping, Discovery, Design & Delivery, and Measure & Learn.<br><br>
+                            Whether you're planning, building, or reflecting—this is where sharper thinking begins.
+                        </div>
+                        <div class="dashboard__intro-image">
+                            <img src="dashboard-image.png" alt="Dashboard Illustration" style="max-width:100%;height:auto;" />
+                        </div>
+                    </div>
                     
                     <div class="dashboard__stats">
                         <div class="stat-card">

@@ -6,7 +6,7 @@ const promptsData = {
             "name": "Strategy",
             "description": "Establish vision, set objectives, and align with organisational goals",
             "color": "#b794f6",
-            "icon": '<i data-feather="target" style="color: #ff0000; stroke-width: 1px;"></i>',
+            "icon": '<i data-feather="target" style="color: #ff0000; stroke-width: 1.5px;"></i>',
             "prompts": [
                 {
                     "id": "okr-development",
@@ -93,7 +93,7 @@ const promptsData = {
             "name": "Shaping",
             "description": "Evaluate ideas for desirability, viability, and feasibility",
             "color": "#f6ad55",
-            "icon": '<i data-feather="zap" style="color: #ff0000; stroke-width: 1px;"></i>',
+            "icon": '<i data-feather="zap" style="color: #ff0000; stroke-width: 1.5px;"></i>',
             "prompts": [
                 {
                     "id": "dvf-evaluation",
@@ -193,7 +193,7 @@ const promptsData = {
             "name": "Discovery",
             "description": "Deep dive into requirements and solution architecture",
             "color": "#68d391",
-            "icon": '<i data-feather="search" style="color: #ff0000; stroke-width: 1px;"></i>',
+            "icon": '<i data-feather="search" style="color: #ff0000; stroke-width: 1.5px;"></i>',
             "prompts": [
                 {
                     "id": "requirements-elicitation",
@@ -267,7 +267,7 @@ const promptsData = {
             "name": "Design & Delivery",
             "description": "Execute solutions with quality and iterative delivery",
             "color": "#63b3ed",
-            "icon": '<i data-feather="package" style="color: #ff0000; stroke-width: 1px;"></i>',
+            "icon": '<i data-feather="package" style="color: #ff0000; stroke-width: 1.5px;"></i>',
             "prompts": [
                 {
                     "id": "sprint-planning",
@@ -367,7 +367,7 @@ const promptsData = {
             "name": "Measure & Learn",
             "description": "Assess performance and extract insights for continuous improvement",
             "color": "#fc8181",
-            "icon": '<i data-feather="trending-up" style="color: #ff0000; stroke-width: 1px;"></i>',
+            "icon": '<i data-feather="trending-up" style="color: #ff0000; stroke-width: 1.5px;"></i>',
             "prompts": [
                 {
                     "id": "customer-impact",

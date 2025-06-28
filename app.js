@@ -20,7 +20,6 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeApp();
     setupEventListeners();
     renderDashboard();
-    setupModeToggle();
 });
 
 function initializeApp() {
@@ -155,7 +154,6 @@ function createPhaseTab(tabData, phaseId) {
         <div class="phase-tab__icon">${tabData.icon}</div>
         <div class="phase-tab__content">
             <div class="phase-tab__name">${tabData.name}</div>
-            <div class="phase-tab__count">${tabData.count}</div>
         </div>
     `;
 
@@ -317,20 +315,14 @@ function createPromptCard(prompt) {
             <h3 class="prompt-card__title">${prompt.title}</h3>
             <p class="prompt-card__description">${prompt.description}</p>
         </div>
-        
         <div class="prompt-card__meta">
-            <span class="complexity-badge complexity-badge--${prompt.complexity}">${prompt.complexity}</span>
-            <span class="time-estimate">${prompt.timeEstimate}</span>
+            <div class="prompt-card__tags">
+                ${prompt.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+            </div>
+            <div class="prompt-card__complexity">
+                <span class="complexity-badge complexity-badge--${prompt.complexity}">${prompt.complexity}</span>
+            </div>
         </div>
-        
-        <div class="prompt-card__roles">
-            ${prompt.roles.map(role => `<span class="role-badge">${role}</span>`).join('')}
-        </div>
-        
-        <div class="prompt-card__tags">
-            ${prompt.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
-        </div>
-        
         <div class="prompt-card__stats">
             <div class="rating">
                 <span class="rating__stars">${starsHtml}</span>
@@ -338,14 +330,13 @@ function createPromptCard(prompt) {
             </div>
             <div class="usage-count">${prompt.usageCount} uses</div>
         </div>
-        
         <div class="prompt-card__actions">
-            <button class="btn btn--primary btn--full-width" style="width:calc(100% - 48px);display:inline-block;vertical-align:middle;" onclick="openPlayground('${prompt.id}')">Use Prompt</button>
-            <button class="favorite-btn favorite-btn--square" onclick="toggleFavorite('${prompt.id}')" aria-label="Favorite" style="display:inline-block;vertical-align:middle;margin-left:8px;">
-                ${heartIcon}
+            <button class="prompt-card__footer-btn">
+                Use Prompt <span class="phase-card__arrow">→</span>
             </button>
         </div>
     `;
+    card.addEventListener('click', () => openPlayground(prompt.id));
 
     return card;
 }
@@ -368,17 +359,17 @@ function handleFilterChange() {
 }
 
 function clearAllFilters() {
-    appState.searchQuery = '';
     appState.filters = { role: '', complexity: '', sortBy: 'rating' };
-    
+
     // Reset form controls
-    document.getElementById('globalSearch').value = '';
     document.getElementById('roleFilter').value = '';
     document.getElementById('complexityFilter').value = '';
     document.getElementById('sortBy').value = 'rating';
-    
+
     if (appState.currentView === 'phase-detail') {
         renderPrompts();
+    } else {
+        renderDashboard();
     }
 }
 
@@ -502,46 +493,6 @@ function showToast(message, type = 'success') {
 // Global functions for onclick handlers
 window.openPlayground = openPlayground;
 window.clearAllFilters = clearAllFilters;
-
-function setupModeToggle() {
-    const modeToggle = document.getElementById('modeToggle');
-    const modeToggleIcon = document.getElementById('modeToggleIcon');
-    const html = document.documentElement;
-
-    // Helper to set mode
-    function setMode(mode) {
-        html.setAttribute('data-color-scheme', mode);
-        if (mode === 'dark') {
-            modeToggleIcon.innerHTML = `
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2"/>
-                    <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" stroke="currentColor" stroke-width="2"/>
-                </svg>
-            `;
-        } else {
-            modeToggleIcon.innerHTML = `
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-            `;
-        }
-    }
-
-    // Load mode from localStorage or system preference
-    let mode = localStorage.getItem('color-scheme');
-    if (!mode) {
-        mode = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-    }
-    setMode(mode);
-
-    // Toggle on click
-    modeToggle.addEventListener('click', function() {
-        const current = html.getAttribute('data-color-scheme') === 'dark' ? 'dark' : 'light';
-        const next = current === 'dark' ? 'light' : 'dark';
-        setMode(next);
-        localStorage.setItem('color-scheme', next);
-    });
-}
 
 function toggleFavorite(promptId) {
     if (appState.favorites.has(promptId)) {
