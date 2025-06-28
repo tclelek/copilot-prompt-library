@@ -564,11 +564,16 @@ select.form-control {
 
 .logo__icon {
   font-size: var(--font-size-2xl);
+  margin-right: 6px;
+  display: flex;
+  align-items: center;
 }
 
 .logo__text {
   font-weight: 700;
   letter-spacing: -0.25px;
+  display: flex;
+  align-items: center;
 }
 
 .header__search {
