@@ -457,10 +457,11 @@ const promptsData = {
                         "Engineering Lead"
                     ],
                     "purpose": ['Assumption Testing','Experimentation', 'Metrics & Insights'],
-                    "prompt": "Split participants into Builders and Red Team for {{Solution_Concept}}. Builders present value prop, evidence, and key assumptions. Red Team has 15 minutes to craft three high-impact critiques (feasibility, viability, desirability). Builders then propose counter-actions or pivots. Rotate roles and repeat. Focus on the {{Time_Frame}} horizon and consider {{key_stakeholders}}.",
+                    "prompt": "Split participants into Builders and Red Team for {{Solution_Concept}}. Builders present value prop, evidence, and key assumptions. Red Team has 15 minutes to craft three high-impact critiques (feasibility, viability, desirability). Builders then propose counter-actions or pivots. Rotate roles and repeat. Focus on the {{Time_Frame}} horizon and consider {{Key_Stakeholders}}.",
                     "variables": [
                         "Solution_Concept",
                         "Time_Frame"
+                        "Key_Stakeholders"
                     ],
                     "rating": 0,
                     "usageCount": 0
