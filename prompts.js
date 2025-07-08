@@ -10,7 +10,7 @@ const promptsData = {
                 {
                     "id": "okr-development",
                     "title": "OKR Development Assistant",
-                    "description": "Create quarterly OKRs aligned with Medibank's mission and Hub objectives",
+                    "description": "Create quarterly OKRs aligned with your Hub objectives and mission",
                     "complexity": "medium",
                     "timeEstimate": "15-30 mins",
                     "roles": [
@@ -30,7 +30,7 @@ const promptsData = {
                 {
                     "id": "vision-alignment",
                     "title": "Opportunity Alignment Analyser",
-                    "description": "Check whether your opportunity ladders up to your Hub objective and ultimately Medibank's mission.",
+                    "description": "Check whether your opportunity ladders up to your objective and ultimately our mission.",
                     "complexity": "low",
                     "timeEstimate": "10-15 mins",
                     "roles": [
@@ -202,10 +202,11 @@ const promptsData = {
                         "Squad Lead"
                     ],
                     "purpose": ['Opportunity Assessment', 'Risk Management'],
-                    "prompt": "Analyse potential risks for {{Solution_Description}}. Identify: critical technical dependencies, required new capabilities, integration complexity with existing systems, timeline implications, and major risk factors. For each risk, suggest mitigation strategies and rate probability/impact. Provide overall risk score. Focus on the {{Time_Frame}} horizon and consider {{key_stakeholders}}.",
+                    "prompt": "Analyse potential risks for {{Solution_Description}}. Identify: critical technical dependencies, required new capabilities, integration complexity with existing systems, timeline implications, and major risk factors. For each risk, suggest mitigation strategies and rate probability/impact. Provide overall risk score. Focus on the {{Time_Frame}} horizon and consider {{Key_Stakeholders}}.",
                     "variables": [
                         "Solution_Description",
                         "Time_Frame"
+                        "Key_Stakeholders"
                     ],
                     "rating": 4.5,
                     "usageCount": 127
@@ -543,7 +544,7 @@ const promptsData = {
                         "Engineering Lead"
                     ],
                     "purpose": ['Experimentation', 'Assumption Testing', 'Creative Ideation', 'Futures & Foresight', 'Opportunity Assessment'],
-                    "prompt": "Design testing strategy for {{Solution_Description}} covering: functional testing scenarios, performance/load testing, security testing, integration testing, user acceptance testing, and accessibility compliance. Organise by testing phase and suggest tools from Medibank's tech stack. Focus on the {{Time_Frame}} horizon and consider {{key_stakeholders}}.",
+                    "prompt": "Design testing strategy for {{Solution_Description}} covering: functional testing scenarios, performance/load testing, security testing, integration testing, user acceptance testing, and accessibility compliance. Organise by testing phase. Focus on the {{Time_Frame}} horizon and consider {{key_stakeholders}}.",
                     "variables": [
                         "Solution_Description",
                         "Time_Frame"
