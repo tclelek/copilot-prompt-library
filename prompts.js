@@ -205,7 +205,7 @@ const promptsData = {
                     "prompt": "Analyse potential risks for {{Solution_Description}}. Identify: critical technical dependencies, required new capabilities, integration complexity with existing systems, timeline implications, and major risk factors. For each risk, suggest mitigation strategies and rate probability/impact. Provide overall risk score. Focus on the {{Time_Frame}} horizon and consider {{Key_Stakeholders}}.",
                     "variables": [
                         "Solution_Description",
-                        "Time_Frame"
+                        "Time_Frame",
                         "Key_Stakeholders"
                     ],
                     "rating": 4.5,
@@ -460,7 +460,7 @@ const promptsData = {
                     "prompt": "Split participants into Builders and Red Team for {{Solution_Concept}}. Builders present value prop, evidence, and key assumptions. Red Team has 15 minutes to craft three high-impact critiques (feasibility, viability, desirability). Builders then propose counter-actions or pivots. Rotate roles and repeat. Focus on the {{Time_Frame}} horizon and consider {{Key_Stakeholders}}.",
                     "variables": [
                         "Solution_Concept",
-                        "Time_Frame"
+                        "Time_Frame",
                         "Key_Stakeholders"
                     ],
                     "rating": 0,
